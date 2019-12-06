@@ -1,14 +1,18 @@
+package day1
+
 import java.io.File
 
-class Calcfuel{
+
+object Calcfuel {
 
      val path = "src/files/calcfuelinput.txt"
-     var input : File = File(path)
-     var total : Int = 0
+     var input: File = File(path)
+     var total: Int = 0
      var moduleFuel = 0
      var fuelFuel = 0
 
-     fun calcFuel() : Int {
+
+     fun calcFuel(): Int {
           input.forEachLine { doStuff(it.toInt()) }
           return total
      }
@@ -25,7 +29,7 @@ class Calcfuel{
           while(holder > 0){
                holder = doMath(holder)
                if (holder > 0)
-               output += holder
+                    output += holder
           }
           return output
      }

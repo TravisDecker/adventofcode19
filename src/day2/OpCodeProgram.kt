@@ -1,20 +1,43 @@
+package day2
+
 import java.io.File
 
-class OpCodeProgram {
+object OpCodeProgram {
 
-    val path = "src/files/opcode.txt"
+    @JvmStatic
+    fun main(args: Array<String>) {
+        go()
+    }
+
+    val path = "src/day2/opcode.txt"
     var input: File = File(path)
+    var output = -1
     val target = 19690720
-    val noun = 0
-    val verb = 0
+    var noun = 0
+    var verb = 0
 
     fun go() {
-        run(fileToArray())
+        run(fileToArray(input))
+        println(output)
+
+
+//        while(output != target){
+//            var intArr = fileToArray(input)
+//            intArr[1] = noun
+//            intArr[2] = verb
+//
+//            run(intArr)
+//            println("Noun: $noun, Verb: $verb")
+//            println(output)
+//            noun++
+//            verb++
+//        }
+
     }
 
 
-    fun fileToArray(): IntArray {
-        val strList = input.readText().split(",").toMutableList()
+    fun fileToArray(file: File): IntArray {
+        val strList = file.readText().split(",").toMutableList()
         val intArr = IntArray(strList.size)
         for ((index, str) in strList.withIndex()) {
             intArr[index] = str.toInt()
@@ -36,7 +59,7 @@ class OpCodeProgram {
             }
 
         }
-        print(intArr[0])
+        output = intArr[0]
     }
 
     private fun addOp(list: IntArray, index: Int): Int {
