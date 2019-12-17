@@ -17,21 +17,21 @@ object OpCodeProgram {
     var verb = 0
 
     fun go() {
-        run(fileToArray(input))
-        println(output)
+//        run(fileToArray(input))
+//        println(output)
 
 
-//        while(output != target){
-//            var intArr = fileToArray(input)
-//            intArr[1] = noun
-//            intArr[2] = verb
-//
-//            run(intArr)
-//            println("Noun: $noun, Verb: $verb")
-//            println(output)
-//            noun++
-//            verb++
-//        }
+        while (output != target) {
+            var intArr = fileToArray(input)
+            intArr[1] = noun
+            intArr[2] = verb
+
+            run(intArr)
+            println("Noun: $noun, Verb: $verb")
+            println(output)
+            noun++
+            verb++
+        }
 
     }
 

@@ -3,6 +3,7 @@ package day2;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -14,11 +15,16 @@ public class OpCodeComputer {
      */
     private static final Pattern DELIMITER = Pattern.compile("\\s*,\\s*");
     private static final Path path = Path.of("src/day2/opcode.txt");
+    public static final int TARGET = 19690720;
+    public static final int BOUND = 100;
+    public static final int verb = 0;
+    public static final int noun = 0;
 
 
     public static void main(String[] args) throws IOException {
         int[] code = parse(path);
-        run(code);
+        System.out.println(run(code));
+        System.out.println(search(code, BOUND, TARGET));
     }
 
     public static int[] parse(Path path) throws IOException {
@@ -31,25 +37,56 @@ public class OpCodeComputer {
         }
     }
 
-    public static void run(int[] code) {
+
+    public static int search(int[] code, int bound, int target) {
+        boolean found = false;
+        int[] working = null;
+        int itCOunt = 0;
+        while (!found) {
+            for (int noun = 0; noun < bound; noun++) {
+                for (int verb = 0; verb < bound; verb++) {
+                    working = Arrays.copyOf(code, code.length);
+                    working[1] = noun;
+                    working[2] = verb;
+                    int out = run(working);
+                    if (out == target) {
+                        found = true;
+                        System.out.println("Noun = " + noun);
+                        System.out.println("Verb = " + verb);
+                        System.out.println("Output = " + out);
+                        System.out.println("Answer = " + (100 * noun) + verb);
+                        System.out.println(Arrays.toString(working));
+                    }
+
+                }
+            }
+        }
+        return working[0];
+    }
+
+    public static int run(int[] code) {
+        int[] working = Arrays.copyOf(code, code.length);
         boolean halt = false;
-        for (int i = 0; i < code.length; i += 4) {
+        for (int i = 0; i < working.length; i += 4) {
             if (!halt) {
-                switch (code[i]) {
+                switch (working[i]) {
                     case 1:
-                        opAdd(code, i);
+                        opAdd(working, i);
                         break;
                     case 2:
-                        opMult(code, i);
+                        opMult(working, i);
                         break;
                     case 99:
                         halt = true;
                         break;
+                    default:
+                        System.out.println("ERROR");
+                        halt = true;
                 }
             } else break;
 
         }
-        System.out.println(code[0]);
+        return working[0];
     }
 
     private static void opMult(int[] code, int i) {
