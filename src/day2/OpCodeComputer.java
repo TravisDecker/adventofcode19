@@ -14,7 +14,7 @@ public class OpCodeComputer {
      * The Pattern "//s*,//s*" matches any number of white space, followed by a comma fallowed by any number of white space.
      */
     private static final Pattern DELIMITER = Pattern.compile("\\s*,\\s*");
-    private static final Path path = Path.of("src/day2/opcode.txt");
+    private static final Path path = Path.of("src/day2/day2.txt");
     public static final int TARGET = 19690720;
     public static final int BOUND = 100;
     public static final int verb = 0;
@@ -54,8 +54,8 @@ public class OpCodeComputer {
                         System.out.println("Noun = " + noun);
                         System.out.println("Verb = " + verb);
                         System.out.println("Output = " + out);
-                        System.out.println("Answer = " + (100 * noun) + verb);
-                        System.out.println(Arrays.toString(working));
+                        int answer = (100 * noun) + verb;
+                        System.out.println("Answer = " + answer);
                     }
 
                 }
